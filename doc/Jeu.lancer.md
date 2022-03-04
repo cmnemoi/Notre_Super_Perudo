@@ -14,6 +14,8 @@ Fonction Jeu.lancer
                 Lire nom_action 
             
         action_precedente = joueur_actuel.action(nom_action)
+        
+        action_precedente.lancer(Encherir())
            
         Pour i allant de 1 à nb_joueurs-1
             joueur[i].lancer_des()
@@ -24,7 +26,7 @@ Fonction Jeu.lancer
             Tant que nom_action pas dans joueur_actuel.actions_autorisees
                 Lire nom_action 
             
-            action_precedente = joueur_actuel.action(nom_action, action_precedente)
+            action_precedente = joueur_actuel.action(nom_action).lancer(action_precedente)
 
 
         joueurs, nb_joueurs = eliminer_joueurs()
