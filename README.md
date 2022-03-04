@@ -5,7 +5,7 @@ Repository pour notre Perudo dans le cadre du cours de Python en LP SID
  * **Jira** : https://selmani-katia434.atlassian.net/jira/software/projects/NSP/boards/2
 
 # Diagramme des classes du projet
-![classes](doc\classes.png)
+![classes](doc/classes.png)
 
 # FAQ
 
