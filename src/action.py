@@ -13,3 +13,11 @@ class Action:
     @abstractmethod
     def lancer(self) -> None:
         pass
+
+    @abstractmethod
+    def verifier_validite(self, action_precedente, pari) -> bool:
+        pass
+
+    @abstractmethod
+    def demander_pari(self, premiere_fois) -> tuple:
+        pass

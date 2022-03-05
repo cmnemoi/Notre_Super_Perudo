@@ -3,4 +3,5 @@
 from jeu import Jeu
 
 if __name__ == "__main__":
-    Jeu().lancer()
+    nb_joueurs = 2
+    Jeu(nb_joueurs).lancer()
