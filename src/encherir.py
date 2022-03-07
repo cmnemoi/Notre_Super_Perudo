@@ -1,8 +1,6 @@
 from action import Action
 import re
 
-
-
 class Encherir(Action):
     """
     La classe Enchérir permet de lancer à un Joueur d'enchérir.
@@ -20,20 +18,20 @@ class Encherir(Action):
         return "Je suis l'action {} et mon pari actuel est {}".format(self.name, self.pari)
         
     """Méthode gérant la logique de l'action : demande le pari du joueur et vérifie qu'il est valide"""
-    def lancer(self, action_precedente) -> None:
+    def lancer(self, action_precedente) -> Action:
         pari = self.demander_pari(True)
 
         action_valide = self.verifier_validite(action_precedente, pari)
 
         while not action_valide:
-            action_valide = self.verifier_validite(action_precedente, pari)
             pari = self.demander_pari(False)
-
-            
+            action_valide = self.verifier_validite(action_precedente, pari)
+                
         self.pari["nb_des"], self.pari["valeur_des"] = pari
 
-    
         print(self)
+        
+        return self
 
     """
     Fonction permettant de demander le pari du Joueur
@@ -69,7 +67,7 @@ class Encherir(Action):
     def verifier_validite(self, action_precedente, pari) -> bool:
             nb_des, valeur = pari
             
-            enchere_valide = nb_des > action_precedente.pari["nb_des"] and valeur > action_precedente.pari["valeur_des"]
+            enchere_valide = nb_des > action_precedente.pari["nb_des"] or valeur > action_precedente.pari["valeur_des"]
             pari_valide = (nb_des < 30) and (valeur < 6 and valeur > 2)
             
             return enchere_valide and pari_valide

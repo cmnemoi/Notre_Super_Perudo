@@ -3,7 +3,6 @@ from encherir import Encherir
 from joueur import Joueur
 
 
-
 class Jeu:
     """
     La classe Jeu gère la logique du jeu dans sa fonction lancer().
@@ -16,12 +15,12 @@ class Jeu:
 
     """Fonction permettant de lancer le jeu et de gérer tous les évènements"""
     def lancer(self) -> None:
-        nb_tours = 3
-        while self.nb_joueurs >= 2 or nb_tours > 1:
+        nb_tours = 2
+        while self.nb_joueurs >= 2 and nb_tours > 0:
 
-            action_precedente = None
+            action_precedente = self.joueurs[0].jouer()
 
-            for joueur in self.joueurs:
+            for joueur in self.joueurs[1:]:
                 action_precedente = joueur.jouer(action_precedente)
 
             nb_tours -= 1
@@ -36,14 +35,14 @@ class Jeu:
     def eliminer_joueurs(self) -> tuple():
         """
         To do : parcourir self.joueurs et si un joueur n'a plus de dés, 
-        l'enelver de la liste self.joueurs()
+        l'enelver de la liste self.joueurs() 
         """
     
     def reveler_des(self, action_precdente) -> None:
         """To do"""
 
     def enlever_de(self, perdant) -> None:
-        """To do"""
+        perdant.nb_des -= 1
 
     def calculer_perdant(self, joueur_1, joueur_2) -> Joueur:
         """To do"""

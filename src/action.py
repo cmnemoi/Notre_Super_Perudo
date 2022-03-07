@@ -11,7 +11,7 @@ class Action:
         pass
 
     @abstractmethod
-    def lancer(self) -> None:
+    def lancer(self) -> 'Action':
         pass
 
     @abstractmethod
