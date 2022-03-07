@@ -36,7 +36,7 @@ class Joueur:
         self.des = [random.randint(1,6) for i in range(self.nb_des)]
 
     """Méthode permettant à un joueur de jouer : lancer ces dés puis choisir une Action"""
-    def jouer(self, action_precedente) -> Action:
+    def jouer(self, action_precedente = None) -> Action:
         if action_precedente is None:
             action_precedente = Encherir()
 
@@ -49,9 +49,8 @@ class Joueur:
         while nom_action not in self.actions_autorisees:
             nom_action = demander_action(False, self)
 
-        self.action(nom_action).lancer(action_precedente)
+        return self.action(nom_action).lancer(action_precedente)
 
-        return action_precedente
 
 """
 La fonction demander_action() permet de demander à l'utilisateur quelle Action
