@@ -19,7 +19,7 @@ class Jeu:
         while self.nb_joueurs >= 2 and nb_tours > 0:
 
             action_precedente = self.joueurs[0].jouer()
-
+        
             for joueur in self.joueurs[1:]:
                 action_precedente = joueur.jouer(action_precedente)
 
@@ -32,12 +32,15 @@ class Jeu:
     def calculer_actions_possibles(self) -> None:
         """To do"""
 
-    def eliminer_joueurs(self) -> tuple():
-        """
-        To do : parcourir self.joueurs et si un joueur n'a plus de dés, 
-        l'enelver de la liste self.joueurs() 
-        """
-    
+    """Fonction qui élimine les joueurs de la partie s'ils n'ont plus de dés"""
+    def eliminer_joueurs(self) -> tuple:
+        for joueur in self.joueurs:
+            if joueur.nb_des < 1:
+                self.joueurs -= 1
+        
+    """
+    En cas de Paco
+    """
     def reveler_des(self, action_precdente) -> None:
         """To do"""
 
