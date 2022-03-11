@@ -1,14 +1,23 @@
 from action import Action
 
-class Paco(Action):
-    def __init__(self) -> None:
-        super().__init__()
+class Dudo(Action):
+    def __init__(self, joueur) -> None:
+        super().__init__(joueur)
 
-    def lancer(self) -> None:
+    def lancer(self, action_precdente) -> Action:
         """To do"""
+        self.annonce_challenge(action_precdente)
 
+        return self
+
+    """pas besoin de vérifier la validité du pari d'un Dudo"""
+    #fonction qui donne si proposition   menteur est vrai ou fausse
     def verifier_validite(self, action_precedente, pari) -> None:
-        """To do"""
-        
-    def demander_pari(self, premiere_fois) -> tuple:
-        """To do"""
+        pass
+
+    """Pas de pari lors d'un Paco"""
+    def demander_pari(self, premiere_fois) -> None:
+        pass
+
+    def annonce_challenge(self, action_precedente) -> None:
+        print("{} pense que {} se trompe !".format(self.joueur, action_precedente.joueur))        

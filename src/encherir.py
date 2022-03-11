@@ -7,8 +7,8 @@ class Encherir(Action):
     Elle permet à un Joueur doit annoncer un nombre de dés ou une valeur de dé supérieur à l'enchère précédente.
     """
 
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, joueur) -> None:
+        super().__init__(joueur)
         self.pari = {
             "nb_des": 0,
             "valeur_des": 0

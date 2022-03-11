@@ -6,8 +6,9 @@ class Action:
     Abstraite, il ne faut pas créer d'objets avec.
     """
 
-    def __init__(self) -> None:
+    def __init__(self, joueur) -> None:
         self.name = type(self).__name__
+        self.joueur = joueur
         pass
 
     @abstractmethod

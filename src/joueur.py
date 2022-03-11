@@ -1,5 +1,6 @@
 from action import Action
 from encherir import Encherir
+from dudo import Dudo
 import random
 
 
@@ -21,7 +22,7 @@ class Joueur:
             self.name += random.choice('abcdefghijklmnopqrstuvwxyz0123456789')
         self.des = [None,None,None,None,None,None]
         self.nb_des = 6
-        self.actions_autorisees = {"Enchérir" : Encherir()}
+        self.actions_autorisees = {"Enchérir" : Encherir(self), "Dudo": Dudo(self)}
 
     """Méthode permettant d'afficher l'objet dans la console avec print()"""
     def __str__(self) -> str:
@@ -38,7 +39,7 @@ class Joueur:
     """Méthode permettant à un joueur de jouer : lancer ces dés puis choisir une Action"""
     def jouer(self, action_precedente = None) -> Action:
         if action_precedente is None:
-            action_precedente = Encherir()
+            action_precedente = Encherir(self)
 
         self.lancer_des()
 
