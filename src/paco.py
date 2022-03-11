@@ -1,8 +1,8 @@
 from action import Action
 
 class Paco(Action):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, joueur) -> None:
+        super().__init__(joueur)
 
     def lancer(self) -> None:
         """To do"""

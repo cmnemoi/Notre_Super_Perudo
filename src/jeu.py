@@ -1,7 +1,9 @@
 from action import Action
-from encherir import Encherir
 from joueur import Joueur
+from encherir import Encherir
 from dudo import Dudo
+from palifico import Palifico
+from paco import Paco
 
 class Jeu:
     """
@@ -17,21 +19,16 @@ class Jeu:
     def lancer(self) -> None:
         nb_tours = 2
         while self.nb_joueurs >= 2 and nb_tours > 0:
-            ##joueurs
-            numero_joueur_precedent = 0
-            
+
+            #on fait jouer le premier joueur à part par ce qu'il n'y a pas d'action précédente + plus simple
+            self.joueurs[0].actions_autorisees = [Encherir(self.joueurs[0])] #le premier joueur ne peut qu'enchérir
             action_precedente = self.joueurs[0].jouer()
             numero_joueur_precedent = 0
             
-            for index, joueur in enumerate(self.joueurs[1:]):
-                action_actuelle = None
-                action_actuelle = joueur.jouer(action_precedente)
-                
-                if isinstance(action_actuelle, Dudo):
-                    self.gerer_dudo(numero_joueur_precedent, action_precedente)
-
-                action_precedente = action_actuelle
-                numero_joueur_precedent = index
+            if self.le_tour_est_palifico(action_precedente):
+                self.lancer_palifico()
+            else:
+                self.lancer_tour_normal()
                     
             nb_tours -= 1
             print("Nombre de tours restants : {}".format(str(nb_tours)))
@@ -39,8 +36,43 @@ class Jeu:
     def determiner_ordre_joueurs(self) -> list():
         """To do"""
 
-    def calculer_actions_possibles(self) -> None:
+    def le_tour_est_palifico(self, action_precedente):
+        if action_precedente.joueur.nb_des == 1:
+            return True
+        else:
+            return False
+        
+
+    def calculer_actions_possibles(self, joueur, le_tour_est_palifico) -> None:
         """To do"""
+        if le_tour_est_palifico:
+            joueur.actions_autorisees = {"Enchérir": Encherir(joueur), "Dudo": Dudo(joueur)}
+
+    def lancer_tour_normal(self) -> None:
+        #on fait jouer le premier joueur à part par ce qu'il n'y a pas d'action précédente + plus simple
+        self.joueurs[0].actions_autorisees = [Encherir(self.joueurs[0])] #le premier joueur ne peut qu'enchérir
+        action_precedente = self.joueurs[0].jouer()
+        numero_joueur_precedent = 0
+            
+        for index, joueur in enumerate(self.joueurs[1:]):
+            action_actuelle = None
+            action_actuelle = joueur.jouer(action_precedente)
+                
+            if isinstance(action_actuelle, Dudo):
+                self.gerer_dudo(numero_joueur_precedent, action_precedente)
+                break
+
+            action_precedente = action_actuelle
+            numero_joueur_precedent = index
+
+    def lancer_palifico(self) -> None:
+        """To do"""
+        print('To do !')
+
+  
+    """
+    En cas de Dudo
+    """
 
     """Fonction qui élimine les joueurs de la partie s'ils n'ont plus de dés"""
     def eliminer_joueurs(self) -> None:
@@ -48,9 +80,6 @@ class Jeu:
             if joueur.nb_des < 1:
                 self.joueurs -= 1
         
-    """
-    En cas de Dudo
-    """
 
     """Fonction qui permet de réveler publiquement tous les dés des joueurs"""
     def reveler_des(self) -> None:

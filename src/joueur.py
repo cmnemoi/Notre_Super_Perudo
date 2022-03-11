@@ -1,6 +1,7 @@
 from action import Action
 from encherir import Encherir
 from dudo import Dudo
+from paco import Paco
 import random
 
 
@@ -22,7 +23,12 @@ class Joueur:
             self.name += random.choice('abcdefghijklmnopqrstuvwxyz0123456789')
         self.des = [None,None,None,None,None,None]
         self.nb_des = 6
-        self.actions_autorisees = {"Enchérir" : Encherir(self), "Dudo": Dudo(self)}
+        self.actions_autorisees = {
+                                    "Enchérir": Encherir(self),
+                                    "Paco": Paco(self),
+                                    "Dudo": Dudo(self)
+                                    
+                                  }
 
     """Méthode permettant d'afficher l'objet dans la console avec print()"""
     def __str__(self) -> str:
@@ -71,6 +77,7 @@ def demander_action(premiere_fois, joueur) -> str:
         print("Action invalide ! (attention à la casse)")
 
     actions_possibles = list(joueur.actions_autorisees.keys())
+
     print("Actions possibles : {}".format(actions_possibles))
    
     return input("Choisissez une action :\n")

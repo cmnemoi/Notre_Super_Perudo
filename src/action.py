@@ -11,6 +11,12 @@ class Action:
         self.joueur = joueur
         pass
 
+    def __str__(self) -> str:
+        return self.name
+
+    def __repr__(self):
+        return self.__str__()
+
     @abstractmethod
     def lancer(self) -> 'Action':
         pass

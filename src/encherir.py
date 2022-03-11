@@ -13,9 +13,6 @@ class Encherir(Action):
             "nb_des": 0,
             "valeur_des": 0
         }
-
-    def __str__(self) -> str:
-        return "Je suis l'action {} et mon pari actuel est {}".format(self.name, self.pari)
         
     """Méthode gérant la logique de l'action : demande le pari du joueur et vérifie qu'il est valide"""
     def lancer(self, action_precedente) -> Action:
