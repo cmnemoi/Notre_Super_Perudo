@@ -18,11 +18,9 @@ class Joueur:
     """Constructeur"""
 
     def __init__(self) -> None:
-        self.name = ''
-        for i in range(10):
-            self.name += random.choice('abcdefghijklmnopqrstuvwxyz0123456789')
-        self.des = [None,None,None,None,None,None]
-        self.nb_des = 6
+        self.name = random.choice(["Alice", "Bob", "Charlie", "David", "Excalibur", "Fabrice", "Gabriel", "Histoire"])
+        self.des = [None,None]
+        self.nb_des = 2
         self.actions_autorisees = {
                                     "Enchérir": Encherir(self),
                                     "Paco": Paco(self),
@@ -43,7 +41,7 @@ class Joueur:
         self.des = [random.randint(1,6) for i in range(self.nb_des)]
 
     """Méthode permettant à un joueur de jouer : lancer ces dés puis choisir une Action"""
-    def jouer(self, action_precedente = None) -> Action:
+    def jouer(self, action_precedente = None, palifico = False) -> Action:
         if action_precedente is None:
             action_precedente = Encherir(self)
 
@@ -56,7 +54,7 @@ class Joueur:
         while nom_action not in self.actions_autorisees:
             nom_action = demander_action(False, self)
 
-        return self.action(nom_action).lancer(action_precedente)
+        return self.action(nom_action).lancer(action_precedente, palifico)
 
 
 """

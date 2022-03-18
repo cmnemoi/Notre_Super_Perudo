@@ -4,7 +4,7 @@ class Dudo(Action):
     def __init__(self, joueur) -> None:
         super().__init__(joueur)
 
-    def lancer(self, action_precdente) -> Action:
+    def lancer(self, action_precdente, palifico = False) -> Action:
         """To do"""
         self.annonce_challenge(action_precdente)
 
