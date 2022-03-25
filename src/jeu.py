@@ -51,6 +51,8 @@ class Jeu:
             numero_tour += 1
             print("Numéro du tour : {}\n".format(str(numero_tour)))
 
+        print(f"{self.joueurs[0]} a gagné !")
+
 
     """Fonction permettant de calculer l'état de la partie : Palifico ou normal
     Si le perdant du dernier tour n'a plus qu'un dé ou n'a plus de dé on est en normal
@@ -141,19 +143,21 @@ class Jeu:
         #si le pari annoncé est faux, on enlève un dé au joueur qui a fait le pari
         #si non on enlève un dé au joueur qui a annoncé Dudo
         if self.pari_faux(action_precedente):
-            self.enlever_de(self.joueurs[numero_joueur_precedent])
+            
             print("{} avait tort ! Il perd un dé.".format(self.joueurs[numero_joueur_precedent]))
-            self.etat_partie(self,self.joueurs[numero_joueur_precedent])
-            if self.joueurs[numero_joueur_precedent].nb_des > 1:
+            self.etat_partie(self.joueurs[numero_joueur_precedent])
+            if self.joueurs[numero_joueur_precedent].nb_des >= 1:
                 self.premier_joueur=self.joueurs[numero_joueur_precedent]
-            else :
-                self.premier_joueur=self.joueurs[numero_joueur_precedent + 1]    
-                
+                self.enlever_de(self.joueurs[(numero_joueur_precedent)])
+            
+                  
         else:
-            self.enlever_de(self.joueurs[numero_joueur_precedent + 1])
-            print("{} avait tort ! Il perd un dé.".format(self.joueurs[numero_joueur_precedent + 1]))
-            self.etat_partie(self,self.joueurs[numero_joueur_precedent]) 
-              
+            
+            print("{} avait tort ! Il perd un dé.".format(self.joueurs[(numero_joueur_precedent+1) % self.nb_joueurs]))
+            self.etat_partie(self.joueurs[numero_joueur_precedent])
+            if self.joueurs[(numero_joueur_precedent+1)].nb_des >=1:
+                self.premier_joueur=self.joueurs[(numero_joueur_precedent+1) % self.nb_joueurs]    
+                self.enlever_de(self.joueurs[(numero_joueur_precedent+1) % self.nb_joueurs])
 
         self.eliminer_joueurs()
 
