@@ -37,7 +37,14 @@ class Jeu:
                 action_precedente = self.premier_joueur.jouer()
                 numero_joueur_precedent = self.joueurs.index(self.premier_joueur)
 
-            self.lancer_tour(action_precedente, numero_joueur_precedent)
+                self.lancer_tour(action_precedente, numero_joueur_precedent)
+            else:
+
+                self.calculer_actions_possibles(self.premier_joueur, self.palifico)
+                action_precedente = self.premier_joueur.jouer()
+                numero_joueur_precedent = self.joueurs.index(self.premier_joueur)
+
+                self.lancer_tour(action_precedente, numero_joueur_precedent)
 
             self.eliminer_joueurs()
                     
@@ -58,8 +65,10 @@ class Jeu:
         
 
     def calculer_actions_possibles(self, joueur, le_tour_est_palifico) -> None:
+        joueur.actions_autorisees = {"Enchérir": Encherir(joueur), "Paco": Paco(joueur), "Dudo": Dudo(joueur)}
         if self.palifico:
             joueur.actions_autorisees = {"Enchérir": Encherir(joueur), "Dudo": Dudo(joueur)}
+        
 
     def lancer_tour(self, action_precedente, numero_joueur_precedent) -> None:
         if self.palifico:
