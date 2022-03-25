@@ -9,7 +9,7 @@ class Paco(Action):
             "valeur_des": 1
         }
 
-    def lancer(self, action_precedente) -> None:
+    def lancer(self, action_precedente, palifico = False) -> None:
         pari = self.demander_pari(True)
 
         action_valide = self.verifier_validite(action_precedente, pari)

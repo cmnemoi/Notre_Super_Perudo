@@ -20,7 +20,7 @@ class Joueur:
     def __init__(self) -> None:
         self.name = random.choice(["Alice", "Bob", "Charlie", "David", "Excalibur", "Fabrice", "Gabriel", "Histoire"])
         self.des = [None,None]
-        self.nb_des = 2
+        self.nb_des = 6
         self.actions_autorisees = {
                                     "Enchérir": Encherir(self),
                                     "Paco": Paco(self),
@@ -44,8 +44,6 @@ class Joueur:
     def jouer(self, action_precedente = None, palifico = False) -> Action:
         if action_precedente is None:
             action_precedente = Encherir(self)
-
-        self.lancer_des()
 
         print("Lancer de dé de {} : {}".format(self,self.des))
 
