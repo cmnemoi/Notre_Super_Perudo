@@ -45,6 +45,7 @@ class Joueur:
         if action_precedente is None:
             action_precedente = Encherir(self)
 
+        print('\n\n\n\n\n\n')
         print("Lancer de dé de {} : {}".format(self,self.des))
 
         nom_action = demander_action(True, self)
