@@ -1,6 +1,7 @@
 from action import Action
 from encherir import Encherir
 from dudo import Dudo
+from paco import Paco
 import random
 
 
@@ -17,12 +18,15 @@ class Joueur:
     """Constructeur"""
 
     def __init__(self) -> None:
-        self.name = ''
-        for i in range(10):
-            self.name += random.choice('abcdefghijklmnopqrstuvwxyz0123456789')
-        self.des = [None,None,None,None,None,None]
+        self.name = random.choice(["Alice", "Bob", "Charlie", "David", "Excalibur", "Fabrice", "Gabriel", "Histoire","Isabelle", "Jardim", "Kamel", "Laurent", "Mathieu", "Nicolas", "Olive", "Patrick", "Quentin", "Rasoir", "Sébastien", "Thomas", "Valentin", "Xavier"])
+        self.des = [None,None]
         self.nb_des = 6
-        self.actions_autorisees = {"Enchérir" : Encherir(self), "Dudo": Dudo(self)}
+        self.actions_autorisees = {
+                                    "Enchérir": Encherir(self),
+                                    "Paco": Paco(self),
+                                    "Dudo": Dudo(self)
+                                    
+                                  }
 
     """Méthode permettant d'afficher l'objet dans la console avec print()"""
     def __str__(self) -> str:
@@ -37,11 +41,9 @@ class Joueur:
         self.des = [random.randint(1,6) for i in range(self.nb_des)]
 
     """Méthode permettant à un joueur de jouer : lancer ces dés puis choisir une Action"""
-    def jouer(self, action_precedente = None) -> Action:
+    def jouer(self, action_precedente = None, palifico = False) -> Action:
         if action_precedente is None:
             action_precedente = Encherir(self)
-
-        self.lancer_des()
 
         print("Lancer de dé de {} : {}".format(self,self.des))
 
@@ -50,7 +52,7 @@ class Joueur:
         while nom_action not in self.actions_autorisees:
             nom_action = demander_action(False, self)
 
-        return self.action(nom_action).lancer(action_precedente)
+        return self.action(nom_action).lancer(action_precedente, palifico)
 
 
 """
@@ -71,6 +73,7 @@ def demander_action(premiere_fois, joueur) -> str:
         print("Action invalide ! (attention à la casse)")
 
     actions_possibles = list(joueur.actions_autorisees.keys())
+
     print("Actions possibles : {}".format(actions_possibles))
    
     return input("Choisissez une action :\n")
