@@ -8,6 +8,4 @@ if __name__ == "__main__":
     while nb_joueurs < 2 or nb_joueurs > 6:
         nb_joueurs = int(input("Choisissez le nombre de joueurs (entre 2 et 6) :"))
 
-    nb_joueurs = 2
-
     Jeu(nb_joueurs).lancer()

@@ -1,4 +1,5 @@
 from action import Action
+from paco import Paco
 import re
 
 class Encherir(Action):
@@ -25,8 +26,6 @@ class Encherir(Action):
             action_valide = self.verifier_validite(action_precedente, pari, palifico)
                 
         self.pari["nb_des"], self.pari["valeur_des"] = pari
-
-        print(self)
         
         return self
 
