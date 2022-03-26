@@ -55,7 +55,7 @@ class Encherir(Action):
     """
     Fonction permettant de vérifier si un pari est valide
     Un pari est valide si l'enchère est valide (les valeurs sont supérieures à l'enchère précedente) 
-    et si les valeurs du pari sont autorisés (nombre de dés < 30, 2 <= valeur du dé <= 6)
+    et si les valeurs du pari sont autorisés (nombre de dés < 30, 1 <= valeur du dé <= 6)
 
     Renvoie :
     - un booléen égal à True si le pari est valide
@@ -69,10 +69,10 @@ class Encherir(Action):
                 
                 if palifico :
                     enchere_valide = nb_des > action_precedente.pari["nb_des"] and valeur == action_precedente.pari["valeur_des"]
-                    pari_valide = (nb_des < 30) and (valeur < 6 and valeur > 2)                
+                    pari_valide = (nb_des < 30) and (valeur <= 6 and valeur >= 1)                
                 else:
                     enchere_valide = nb_des > action_precedente.pari["nb_des"] or valeur > action_precedente.pari["valeur_des"]
-                    pari_valide = (nb_des < 30) and (valeur < 6 and valeur > 2)
+                    pari_valide = (nb_des < 30) and (valeur <= 6 and valeur >= 1)
                 
                 return enchere_valide and pari_valide
             
