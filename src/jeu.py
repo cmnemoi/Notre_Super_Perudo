@@ -60,13 +60,9 @@ class Jeu:
     """
     def etat_partie(self, perdant=Joueur()):
        if perdant.nb_des == 1:
-           print(perdant)
-           print("pali test")
            self.palifico = True
 
        elif (perdant.nb_des > 1) or (perdant.nb_des == 0):
-            print(perdant)
-            print("non pali test")
             self.palifico = False
         
 
