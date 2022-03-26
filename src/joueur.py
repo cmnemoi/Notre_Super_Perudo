@@ -19,7 +19,7 @@ class Joueur:
 
     def __init__(self) -> None:
         self.name = random.choice(["Alice", "Bob", "Charlie", "David", "Excalibur", "Fabrice", "Gabriel", "Histoire","Isabelle", "Jardim", "Kamel", "Laurent", "Mathieu", "Nicolas", "Olive", "Patrick", "Quentin", "Rasoir", "Sébastien", "Thomas", "Valentin", "Xavier"])
-        self.nb_des = 2
+        self.nb_des = 6
         self.des = [random.randint(1,6) for i in range(self.nb_des)]
         self.actions_autorisees = {
                                     "Enchérir": Encherir(self),
