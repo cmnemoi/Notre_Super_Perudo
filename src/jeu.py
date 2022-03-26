@@ -43,7 +43,6 @@ class Jeu:
                 numero_joueur_precedent = self.joueurs.index(self.premier_joueur)
 
                 self.premier_joueur = None
-                self.palifico = False
 
                 self.lancer_tour(action_precedente, numero_joueur_precedent)
 
@@ -61,20 +60,24 @@ class Jeu:
     """
     def etat_partie(self, perdant=Joueur()):
        if perdant.nb_des == 1:
-          self.palifico = True
+           print(perdant)
+           print("pali test")
+           self.palifico = True
 
-       elif (perdant.nb_des > 1) or (perdant.nb_des == 0) :
-          self.palifico = False
+       elif (perdant.nb_des > 1) or (perdant.nb_des == 0):
+            print(perdant)
+            print("non pali test")
+            self.palifico = False
         
 
     def calculer_actions_possibles(self, joueur) -> None:
-        if self.palifico:
-            joueur.actions_autorisees = {"Enchérir": Encherir(joueur), "Dudo": Dudo(joueur)}
-
         if joueur is self.premier_joueur:
             joueur.actions_autorisees = {"Enchérir": Encherir(joueur)} #le premier joueur ne peut qu'enchérir
+        elif self.palifico:
+            joueur.actions_autorisees = {"Enchérir": Encherir(joueur), "Dudo": Dudo(joueur)}
         else:
-            joueur.actions_autorisees = {"Enchérir": Encherir(joueur), "Paco": Paco(joueur), "Dudo": Dudo(joueur)}
+            joueur.actions_autorisees = {"Enchérir": Encherir(joueur), "Paco" : Paco(joueur), "Dudo": Dudo(joueur)}
+
 
         
         
@@ -90,8 +93,6 @@ class Jeu:
             action_actuelle = None
             self.calculer_actions_possibles(joueur_actuel)
             action_actuelle = joueur_actuel.jouer(action_precedente, self.palifico)
-            self.palifico = False
-
                 
             if isinstance(action_actuelle, Dudo):
                 self.gerer_dudo(numero_joueur_precedent, action_precedente)
@@ -114,8 +115,9 @@ class Jeu:
             if joueur.nb_des < 1:
                 self.joueurs.remove(joueur)
                 self.nb_joueurs -= 1
+                print(f"{joueur} n'a plus de dés, iel a perdu ! :'(")
         
-
+       
     """Fonction qui permet de réveler publiquement tous les dés des joueurs"""
     def reveler_des(self) -> None:
         des_sur_la_table = [] 
@@ -158,28 +160,35 @@ class Jeu:
         #si non on enlève un dé au joueur qui a annoncé Dudo
         if self.pari_faux(action_precedente):
             perdant = self.joueurs[(numero_joueur_precedent) % self.nb_joueurs]
-            print("{} avait tort ! Il perd un dé.".format(perdant))
-            if perdant.nb_des >= 1:
+            print("{} avait tort ! Iel perd un dé.".format(perdant))
+            if perdant.nb_des > 1:
                 self.premier_joueur=perdant
-                self.enlever_de(self.joueurs[(numero_joueur_precedent) % self.nb_joueurs])
+                self.enlever_de(perdant)
+                self.etat_partie(perdant)
                 
-            self.etat_partie(perdant)   
-                  
+            else:
+                self.premier_joueur=self.joueurs[(numero_joueur_precedent+1) % self.nb_joueurs]
+                self.enlever_de(perdant)
+                self.palifico = False
+           
         else:
             perdant = self.joueurs[(numero_joueur_precedent+1) % self.nb_joueurs]
-            print("{} avait tort ! Il perd un dé.".format(perdant))  
-            if perdant.nb_des >=1:
-                self.premier_joueur=perdant    
+            print("{} avait tort ! Iel perd un dé.".format(perdant))  
+            if perdant.nb_des >1:
+                self.premier_joueur=perdant
                 self.enlever_de(perdant)
-
-            self.etat_partie(perdant)
+                self.etat_partie(perdant)
+            else:
+                self.premier_joueur=self.joueurs[(numero_joueur_precedent+2) % self.nb_joueurs]
+                self.enlever_de(perdant)
+                self.palifico = False
 
         self.eliminer_joueurs()
-        self.premier_joueur = perdant
 
         for joueur in self.joueurs:
             joueur.lancer_des()
             self.calculer_actions_possibles(joueur)
+
 
     def determiner_premier_joueur(self) -> Joueur:
         #retirage des dés
